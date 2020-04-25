@@ -2,10 +2,12 @@ package es.javierdearcos.bookstore.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class Book {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(length = 200)
@@ -32,9 +34,11 @@ public class Book {
     @Enumerated
     private Language language;
 
-    public Book(Long id, String title, String description, Float unitCost, String isbn, Date publicationDate,
+    public Book() {
+    }
+
+    public Book(String title, String description, Float unitCost, String isbn, Date publicationDate,
                 Integer numberOfPages, String imageUrl, Language language) {
-        this.id = id;
         this.title = title;
         this.description = description;
         this.unitCost = unitCost;
@@ -115,6 +119,27 @@ public class Book {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(description, book.description) &&
+                Objects.equals(unitCost, book.unitCost) &&
+                Objects.equals(isbn, book.isbn) &&
+                Objects.equals(publicationDate, book.publicationDate) &&
+                Objects.equals(numberOfPages, book.numberOfPages) &&
+                Objects.equals(imageUrl, book.imageUrl) &&
+                language == book.language;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, unitCost, isbn, publicationDate, numberOfPages, imageUrl, language);
     }
 
     @Override

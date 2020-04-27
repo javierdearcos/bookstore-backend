@@ -28,7 +28,7 @@ public class BookRepositoryTest {
         assertEquals(Long.valueOf(0), bookRepository.countAll());
         assertEquals(Collections.emptyList(), bookRepository.findAll());
 
-        Book newBook = new Book("title", "description", 24.99f, "isbn", new Date(),
+        Book newBook = new Book("title", "the book description", 24.99f, "isbn", new Date(),
                 300, "http://image.url", Language.ENGLISH);
         newBook = bookRepository.create(newBook);
 
@@ -44,6 +44,18 @@ public class BookRepositoryTest {
 
         assertEquals(Long.valueOf(0), bookRepository.countAll());
         assertEquals(Collections.emptyList(), bookRepository.findAll());
+    }
+
+    @Test(expected = Exception.class)
+    public void createInvalid() {
+        Book newBook = new Book(null, "the book description", 24.99f, "isbn", new Date(),
+                 300, "http://image.url", Language.ENGLISH);
+        bookRepository.create(newBook);
+     }
+
+    @Test(expected = Exception.class)
+    public void findInvalid() {
+        bookRepository.find(null);
     }
 
     @Deployment

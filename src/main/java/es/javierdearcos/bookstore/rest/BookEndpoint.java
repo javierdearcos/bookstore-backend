@@ -28,7 +28,7 @@ public class BookEndpoint {
         Book book = bookRepository.find(id);
 
         if (book == null) {
-            Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
 
         return Response.ok(book).build();
@@ -40,7 +40,7 @@ public class BookEndpoint {
         List<Book> books = bookRepository.findAll();
 
         if (books.isEmpty()) {
-            Response.noContent().build();
+            return Response.noContent().build();
         }
 
         return Response.ok(books).build();

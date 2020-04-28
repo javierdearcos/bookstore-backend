@@ -30,6 +30,7 @@ public class Book {
     @Column(length = 50)
     @NotNull
     @Size(min = 1, max = 50)
+    // TODO: Replace with a ISBN validator
     private String isbn;
 
     @Column(name = "publication_date")

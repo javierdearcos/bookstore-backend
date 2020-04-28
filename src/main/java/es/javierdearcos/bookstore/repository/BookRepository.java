@@ -1,7 +1,10 @@
 package es.javierdearcos.bookstore.repository;
 
 import es.javierdearcos.bookstore.model.Book;
+import es.javierdearcos.bookstore.util.DateUtil;
+import es.javierdearcos.bookstore.util.TextUtil;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -17,6 +20,11 @@ public class BookRepository {
 
     @PersistenceContext(unitName = "bookStorePU")
     private EntityManager entityManager;
+
+    @Inject
+    private TextUtil textUtil;
+    @Inject
+    private DateUtil dateUtil;
 
     public Book find(@NotNull Long id) {
         return entityManager.find(Book.class, id);
@@ -34,6 +42,9 @@ public class BookRepository {
 
     @Transactional(REQUIRED)
     public Book create(@NotNull Book book) {
+        book.setTitle(textUtil.sanitize(book.getTitle()));
+        book.setDescription(textUtil.sanitize(book.getDescription()));
+        book.setPublicationDate(dateUtil.getDateWithoutTime(book.getPublicationDate()));
         entityManager.persist(book);
         return book;
     }

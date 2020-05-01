@@ -1,5 +1,8 @@
 package es.javierdearcos.bookstore.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -9,42 +12,52 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@ApiModel("Book")
 public class Book {
     @Id
     @GeneratedValue
+    @ApiModelProperty("Book identifier")
     private Long id;
 
     @Column(length = 200)
     @NotNull
     @Size(min = 1, max = 200)
+    @ApiModelProperty("Title of the book")
     private String title;
 
     @Column(length = 10000)
     @Size(min = 10, max = 10000)
+    @ApiModelProperty("Description fo the book")
     private String description;
 
     @Column(name = "unit_cost")
     @Min(1)
+    @ApiModelProperty("Price of the book")
     private Float unitCost;
 
     @Column(length = 50)
     @NotNull
     @Size(min = 1, max = 50)
     // TODO: Replace with a ISBN validator
+    @ApiModelProperty("ISBN of the book")
     private String isbn;
 
     @Column(name = "publication_date")
     @Temporal(TemporalType.DATE)
     @Past
+    @ApiModelProperty("Date when book was published")
     private Date publicationDate;
 
     @Column(name = "number_of_pages")
+    @ApiModelProperty("Number of pages of the book")
     private Integer numberOfPages;
 
     @Column(name = "image_url")
+    @ApiModelProperty("URL with the book cover image")
     private String imageUrl;
 
     @Enumerated
+    @ApiModelProperty("Language of the book")
     private Language language;
 
     public Book() {

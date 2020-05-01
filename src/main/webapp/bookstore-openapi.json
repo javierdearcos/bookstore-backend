@@ -1,0 +1,187 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "BookStore API documentation",
+    "version" : "1.0.0",
+    "title" : "BookStore API",
+    "contact" : {
+      "name" : "Javier de Arcos",
+      "url" : "https://github.com/javierdearcos",
+      "email" : "fj.dearcos@gmail.com"
+    }
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/bookstore-backend/api",
+  "tags" : [ {
+    "name" : "Book"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/books" : {
+      "get" : {
+        "tags" : [ "Book" ],
+        "summary" : "Returns all books available",
+        "description" : "",
+        "operationId" : "getBooks",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Books available returned"
+          },
+          "204" : {
+            "description" : "No books available"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Book" ],
+        "summary" : "Creates a new book with the given information",
+        "description" : "",
+        "operationId" : "createBook",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Book to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Book"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Book created"
+          },
+          "400" : {
+            "description" : "Bad request"
+          }
+        }
+      }
+    },
+    "/books/count" : {
+      "get" : {
+        "tags" : [ "Book" ],
+        "summary" : "Returns the number of books available",
+        "description" : "",
+        "operationId" : "countBooks",
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "Number of books available returned"
+          },
+          "204" : {
+            "description" : "No books available"
+          }
+        }
+      }
+    },
+    "/books/{id}" : {
+      "get" : {
+        "tags" : [ "Book" ],
+        "summary" : "Returns a book given an identifier",
+        "description" : "",
+        "operationId" : "getBook",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "minimum" : 1,
+          "pattern" : "\\d+",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Book with given identifier returned",
+            "schema" : {
+              "$ref" : "#/definitions/Book"
+            }
+          },
+          "404" : {
+            "description" : "Book not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Book" ],
+        "summary" : "Deletes the book with the given identifier",
+        "description" : "",
+        "operationId" : "deleteBook",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "minimum" : 1,
+          "pattern" : "\\d+",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Book with the given identifier deleted"
+          },
+          "404" : {
+            "description" : "Book not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Book" : {
+      "type" : "object",
+      "required" : [ "isbn", "title" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Book identifier"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Title of the book",
+          "minLength" : 1,
+          "maxLength" : 200
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Description fo the book",
+          "minLength" : 10,
+          "maxLength" : 10000
+        },
+        "unitCost" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "Price of the book",
+          "minimum" : 1
+        },
+        "isbn" : {
+          "type" : "string",
+          "description" : "ISBN of the book",
+          "minLength" : 1,
+          "maxLength" : 50
+        },
+        "publicationDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Date when book was published"
+        },
+        "numberOfPages" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of pages of the book"
+        },
+        "imageUrl" : {
+          "type" : "string",
+          "description" : "URL with the book cover image"
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "Language of the book",
+          "enum" : [ "ENGLISH", "FRENCH", "SPANISH", "PORTUGUESE", "ITALIAN", "FINISH", "GERMAN", "DUTCH", "RUSSIAN" ]
+        }
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@
         <javaee.version>7.0</javaee.version>
         <swagger.version>1.5.12</swagger.version>
         <swagger.hibernate.version>1.5.22</swagger.hibernate.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <arquillian.version>1.4.1.Final</arquillian.version>
         <arquillian.wildfly.version>2.1.1.Final</arquillian.wildfly.version>
         <arquillian.rest.version>1.0.0.Alpha4</arquillian.rest.version>
